@@ -1,12 +1,13 @@
 import React from 'react'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import FlashcardData from './components/FlashcardData.jsx'
 import './App.css'
 import axios from 'axios'
 
 function App() {
   const [flashcards, setFlashcards] = useState(SAMPLE_FLASHCARDS);
+
+  const categoryEl = useRef()
 
   useEffect(() => {
     axios
@@ -32,10 +33,25 @@ function App() {
     return <textarea>str</textarea>
   }
 
+  function handleSubmit(e) {
+    e.preventDefault()
+  }
+
   return (
-    <div className="App">
-      <FlashcardData flashcards={flashcards} />
-    </div>
+    <>
+      <form className="header" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlForm="category">Category</label>
+          <select id="category" ref={categoryEl}>
+
+          </select>
+        </div>
+      </form>
+      <div className="container">
+        <FlashcardData flashcards={flashcards} />
+      </div>
+    </>
+
   )
 }
 
