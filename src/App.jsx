@@ -6,8 +6,17 @@ import axios from 'axios'
 
 function App() {
   const [flashcards, setFlashcards] = useState(SAMPLE_FLASHCARDS);
+  const [categories, setCategories] = useState([])
 
   const categoryEl = useRef()
+
+  useEffect(() => {
+    axios
+      .get('')
+      .then(res => {
+        setCategories(res.data.trivia_categories)
+      })
+  }, [])
 
   useEffect(() => {
     axios
@@ -43,7 +52,8 @@ function App() {
         <div className="form-group">
           <label htmlForm="category">Category</label>
           <select id="category" ref={categoryEl}>
-
+            
+            <option value=""></option>
           </select>
         </div>
       </form>
